@@ -1,4 +1,6 @@
 import ee
+import streamlit as st
+
 class SpatialProcessor:
     def __init__(self):
         """Initialise la connexion à Earth Engine via les secrets Streamlit"""
