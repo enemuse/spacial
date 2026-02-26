@@ -28,6 +28,7 @@ m = geemap.Map(
     center=[lat, lon],
     zoom=12,
     height=650,
+    ee_initialize=False,
     add_google_map=False  # optionnel, évite conflit de tuiles
 )
 
