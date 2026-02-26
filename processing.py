@@ -12,13 +12,14 @@ class SpatialProcessor:
                 
                 # Authentification par compte de service
                 credentials = ee.ServiceAccountCredentials(
-                    creds_dict['client_email'], 
+                    creds_dict['client_email'],
+                    # key_data=json.dumps(service_account_info)
                     key_data=creds_dict['private_key']
                 )
                 ee.Initialize(credentials=credentials)
             else:
                 # Fallback pour le développement local classique
-                ee.Initialize(project='app-teledetection')
+                ee.Initialize(project='nodal-pixel-429306-b3')
         except Exception as e:
             st.error(f"Erreur d'initialisation Earth Engine : {e}")
 
