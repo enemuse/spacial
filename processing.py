@@ -1,8 +1,25 @@
 import ee
 class SpatialProcessor:
-    def init(self):
-        """Initialise la connexion à Earth Engine"""
-        ee.Initialize(project="nodal-pixel-429306-b3")
+    def __init__(self):
+        """Initialise la connexion à Earth Engine via les secrets Streamlit"""
+        try:
+            # Vérifier si on est en local ou sur Streamlit Cloud
+            if "earth_engine" in st.secrets:
+                # Récupération des infos du fichier .streamlit/secrets.toml
+                creds_dict = dict(st.secrets["earth_engine"])
+                
+                # Authentification par compte de service
+                credentials = ee.ServiceAccountCredentials(
+                    creds_dict['client_email'], 
+                    key_data=creds_dict['private_key']
+                )
+                ee.Initialize(credentials=credentials)
+            else:
+                # Fallback pour le développement local classique
+                ee.Initialize(project='app-teledetection')
+        except Exception as e:
+            st.error(f"Erreur d'initialisation Earth Engine : {e}")
+
     def get_satellite_image(self, lat, lon):
         """Récupère la dernière image Sentinel-2 pour un point donné"""
         point = ee.Geometry.Point([lon, lat])
