@@ -1,0 +1,8 @@
+.streamlit/secrets.toml
+.streamlit/cache
+# virtual env python
+gee_venv
+# env vars
+.env
+# compiled files
+__pycache__
